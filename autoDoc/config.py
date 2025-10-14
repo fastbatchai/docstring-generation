@@ -15,7 +15,7 @@ class DatasetConfig:
     train_split_ratio: float = 0.9
     preproc_func: Callable = None
     eos_token: str = "<|endoftext|>"
-    training_type: str = "grpo"
+    training_type: str = ""
 
 
 @dataclass
