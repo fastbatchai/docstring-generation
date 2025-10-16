@@ -1,7 +1,7 @@
 """Configuration management for AutoDoc GRPO training."""
 
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Callable
 
 from autoDoc.dataset_utils import format_alpaca_example, format_grpo_example
 

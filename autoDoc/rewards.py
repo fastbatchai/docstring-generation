@@ -2,7 +2,7 @@
 
 import re
 from collections import Counter
-from typing import List
+
 import torch
 from bert_score import score
 
@@ -78,7 +78,7 @@ def token_overlap(pred: str, ref: str) -> float:
     return len(pred_tokens & ref_tokens) / max(len(ref_tokens), 1)
 
 
-def length_reward(completions: List[str], **kwargs) -> List[float]:
+def length_reward(completions: list[str], **kwargs) -> list[float]:
     """Calculate length-based rewards for completions."""
     rewards = []
     for content in completions:
@@ -87,8 +87,8 @@ def length_reward(completions: List[str], **kwargs) -> List[float]:
 
 
 def semantic_reward(
-    completions: List[str], docstring: List[str], **kwargs
-) -> List[float]:
+    completions: list[str], docstring: list[str], **kwargs
+) -> list[float]:
     """Calculate semantic reward combining BERTScore, token overlap, and repetition penalty."""
     clean_refs = [clean_text(r) for r in docstring]
     clean_preds = [clean_text(c) for c in completions]

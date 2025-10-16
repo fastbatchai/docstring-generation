@@ -8,7 +8,7 @@
 
 **AutoDoc** is short and comprehensive implemntation of an LLM finetuning pipeline to automatically generate high-quality docstrings for code functions across multiple programming languages. This repo includes training and evaluation scripts for `instruction finetuning` and `RL-finetuning` using `GRPO`. It also helps compare different finetuning frameworks such as [PEFT](https://huggingface.co/docs/peft/index), [Unsloth](https://unsloth.ai/) and [TRL](https://github.com/huggingface/trl?tab=readme-ov-file).
 
-We use [Modal](https://modal.com/) for training and evaluating on GPU. It possible to finetune a 2B parameter model almost for free using Modal. As a reference, all our experiments cost us 30$. 
+We use [Modal](https://modal.com/) for training and evaluating on GPU. It possible to finetune a 2B parameter model almost for free using Modal. As a reference, all our experiments cost us 30$.
 
 ## 🚀 Quick Start
 

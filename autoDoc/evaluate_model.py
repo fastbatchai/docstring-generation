@@ -132,7 +132,9 @@ def evaluate_model(config):
         }
 
         if config.use_llm_as_judge:
-            completions = [[c0, c1] for c0, c1 in zip(references, generated_responses)]
+            completions = [
+                [c0, c1] for c0, c1 in zip(references, generated_responses, strict=True)
+            ]
             best_idxs = judge.judge(dataset["prompt"], completions)
             model_win_rate = best_idxs.count(1) / len(best_idxs)
             all_metrics[lang]["model_win_rate"] = model_win_rate

@@ -36,9 +36,11 @@ class Perplexity(evaluate.EvaluationModule):
         device=None,
     ):
         if device is not None:
-            assert device in ["gpu", "cpu", "cuda"], (
-                "device should be either gpu or cpu."
-            )
+            assert device in [
+                "gpu",
+                "cpu",
+                "cuda",
+            ], "device should be either gpu or cpu."
             if device == "gpu":
                 device = "cuda"
         else:
@@ -52,17 +54,17 @@ class Perplexity(evaluate.EvaluationModule):
                 tokenizer.special_tokens_map_extended.values()
             )
             # check that the model already has at least one special token defined
-            assert len(existing_special_tokens) > 0, (
-                "If batch_size > 1, model must have at least one special token to use for padding. Please use a different model or set batch_size=1."
-            )
+            assert (
+                len(existing_special_tokens) > 0
+            ), "If batch_size > 1, model must have at least one special token to use for padding. Please use a different model or set batch_size=1."
             # assign one of the special tokens to also be the pad token
             tokenizer.add_special_tokens({"pad_token": existing_special_tokens[0]})
 
         if add_start_token:
             # leave room for <BOS> token to be added:
-            assert tokenizer.bos_token is not None, (
-                "Input model must already have a BOS token if using add_start_token=True. Please use a different model, or set add_start_token=False"
-            )
+            assert (
+                tokenizer.bos_token is not None
+            ), "Input model must already have a BOS token if using add_start_token=True. Please use a different model, or set add_start_token=False"
             max_tokenized_len = model.config.max_length - 1
         else:
             max_tokenized_len = model.config.max_length
@@ -82,13 +84,13 @@ class Perplexity(evaluate.EvaluationModule):
 
         # check that each input is long enough:
         if add_start_token:
-            assert torch.all(torch.ge(attn_masks.sum(1), 1)), (
-                "Each input text must be at least one token long."
-            )
+            assert torch.all(
+                torch.ge(attn_masks.sum(1), 1)
+            ), "Each input text must be at least one token long."
         else:
-            assert torch.all(torch.ge(attn_masks.sum(1), 2)), (
-                "When add_start_token=False, each input text must be at least two tokens long. Run with add_start_token=True if inputting strings of only one token, and remove all empty input strings."
-            )
+            assert torch.all(
+                torch.ge(attn_masks.sum(1), 2)
+            ), "When add_start_token=False, each input text must be at least two tokens long. Run with add_start_token=True if inputting strings of only one token, and remove all empty input strings."
 
         ppls = []
         loss_fct = CrossEntropyLoss(reduction="none")

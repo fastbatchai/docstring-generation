@@ -17,7 +17,7 @@ from autoDoc.config import GRPOExperimentConfig, SFTExperimentConfig
 ########################################################
 with base_image.imports():
     # isort: off
-    # import unsloth # uncomment this to use unsloth
+    import unsloth
     import torch
     import wandb
     from datasets import load_from_disk
@@ -265,7 +265,7 @@ def create_trainer(
             eval_dataset=eval_dataset,
         )
     else:
-        raise ValueError(f"Invalid training type: {training_type}")
+        raise ValueError(f"Invalid training type: {config.training_type}")
 
 
 @train_app.function(
@@ -297,7 +297,7 @@ def finetune(config):
     model, tokenizer = load_or_cache_model(config)
     train_dataset, eval_dataset = du.prepare_dataset(config, load_or_cache_dataset)
     if config.verbose > 1:
-        for name, module in model.named_modules():
+        for name, _ in model.named_modules():
             if "proj" in name:
                 print(name)
 
