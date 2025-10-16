@@ -11,24 +11,27 @@ base_image: modal.Image = (
         "trl==0.19.1",
         "transformers==4.54.0",
         "wandb==0.21.0",
+        "unsloth[cu128-torch270]==2025.7.8",
+        "unsloth_zoo==2025.7.10",
         "bitsandbytes",
         "bert-score",
         "ipython",
     )
     .env({"HF_HOME": "/model_cache"})
+    .add_local_python_source("autoDoc")
 )
 
-# Extend base image with GRPO dependencies
-grpo_image: modal.Image = base_image.uv_pip_install(
-    "bert-score",
-).add_local_python_source("autoDoc")
+# # Extend base image with GRPO dependencies
+# grpo_image: modal.Image = base_image.uv_pip_install(
+#     "bert-score",
+# ).add_local_python_source("autoDoc")
 
-sft_image: modal.Image = base_image.uv_pip_install(
-    "unsloth[cu128-torch270]==2025.7.8",
-    "unsloth_zoo==2025.7.10",
-).add_local_python_source("autoDoc")
+# sft_image: modal.Image = base_image.uv_pip_install(
+#     "unsloth[cu128-torch270]==2025.7.8",
+#     "unsloth_zoo==2025.7.10",
+# ).add_local_python_source("autoDoc")
 
-app = modal.App(
+train_app = modal.App(
     "docstring-finetune",
     secrets=[
         modal.Secret.from_name("wandb-secret"),

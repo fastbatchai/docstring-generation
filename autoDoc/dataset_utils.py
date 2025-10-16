@@ -48,9 +48,7 @@ def format_alpaca_example(example: dict[str, Any], eos_token: str) -> dict[str, 
     language = example["language"]
     code = example["code"]
     response = (
-        example["func_documentation_string"]
-        if example["func_documentation_string"]
-        else "No docstring available."
+        example["docstring"] if example["docstring"] else "No docstring available."
     )
 
     formatted_example = ALPACA_PROMPT.format(language, code, response) + eos_token

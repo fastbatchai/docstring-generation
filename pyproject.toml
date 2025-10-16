@@ -18,6 +18,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "ipython>=8.0.0",
+    "pytest>=8.3.4",
 ]
 
 [build-system]

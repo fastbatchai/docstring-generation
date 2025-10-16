@@ -27,11 +27,11 @@ You need to setup Modal before starting training ```modal setup```
 
 ### Launch instruction finetuning
 ```bash
-modal run -m autoDoc.sft
+modal run -i -m autoDoc.train --training-type sft --use-unsloth
 ```
 ### Launch RL-finetuning using GRPO
 ```bash
-modal run -m autoDoc.grpo --config /dataset_cache/grpo_config.yaml
+modal run -i -m autoDoc.train --training-type grpo --experiment_name EXPERIMENT_NAME --verbose 1
 ```
 
 ## 🤝 Contributing

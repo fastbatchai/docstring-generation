@@ -15,21 +15,7 @@ class DatasetConfig:
     train_split_ratio: float = 0.9
     preproc_func: Callable = None
     eos_token: str = "<|endoftext|>"
-    training_type: str = ""
-
-
-@dataclass
-class GRPOExperimentConfig:
-    """Complete experiment configuration."""
-
-    dataset: DatasetConfig = field(default_factory=DatasetConfig)
-    seed: int = 42
-    wandb_project: str = ""
-    experiment_name: str = ""
-
-    def __post_init__(self):
-        self.dataset.preproc_func = format_grpo_example
-        self.dataset.training_type = "grpo"
+    training_type: str = "sft"
 
 
 @dataclass
@@ -41,10 +27,10 @@ class SFTExperimentConfig:
 
     seed: int = 42
     verbose: int = 0
-
+    training_type: str = "sft"
     # Model Configuration
     model_name: str = "google/codegemma-2b"  # "bigcode/starcoder2-3b" #"meta-llama/Llama-3.2-3B-Instruct" #"Qwen/Qwen2.5-Coder-1.5B-Instruct"
-    max_length: int = 1024
+    max_length: int = 2048
     load_in_4bit: bool = True
     load_in_8bit: bool = False
 
@@ -69,7 +55,7 @@ class SFTExperimentConfig:
     warmup_ratio: float = 0.03
     fp16: bool = False
     bf16: bool = True
-    use_unsloth: bool = True
+    use_unsloth: bool = False
     use_gradient_checkpointing: str = "unsloth"
 
     # Logging and Evaluation
@@ -83,4 +69,21 @@ class SFTExperimentConfig:
 
     def __post_init__(self):
         self.dataset.preproc_func = format_alpaca_example
-        self.dataset.training_type = "sft"
+        self.dataset.training_type = self.training_type
+
+
+@dataclass
+class GRPOExperimentConfig(SFTExperimentConfig):
+    """Complete experiment configuration."""
+
+    use_vllm: bool = False
+    num_generations: int = 2
+    temperature: float = 0.7
+    top_p: float = 0.9
+    top_k: int = 50
+    max_completion_length: int = 1024
+
+    def __post_init__(self):
+        self.dataset.preproc_func = format_grpo_example
+        self.training_type = "grpo"
+        self.dataset.training_type = self.training_type
