@@ -50,3 +50,23 @@ dataset_cache_volume = modal.Volume.from_name(
 model_cache_volume = modal.Volume.from_name(
     "finetune-model-cache", create_if_missing=True
 )
+
+
+eval_app = modal.App(
+    "finetune_eval", secrets=[modal.Secret.from_name("huggingface-secret")]
+)
+
+eval_image = (
+    modal.Image.debian_slim(python_version="3.11")
+    .uv_pip_install(
+        "accelerate==1.9.0",
+        "datasets==3.6.0",
+        "transformers==4.54.0",
+        "peft==0.16.0",
+        "scikit-learn",
+        "evaluate",
+        "trl",
+        "bert_score",
+    )
+    .env({"HF_HOME": "/model_cache"})
+)

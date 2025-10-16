@@ -87,3 +87,26 @@ class GRPOExperimentConfig(SFTExperimentConfig):
         self.dataset.preproc_func = format_grpo_example
         self.training_type = "grpo"
         self.dataset.training_type = self.training_type
+
+
+@dataclass
+class EvaluationConfig:
+    """Configuration for model evaluation."""
+
+    base_model: str = "google/codegemma-2b"
+    experiment_name: str = "codegemma-lora-peft-r4-alpha8"
+    dataset_name: str = "claudios/code_search_net"
+    languages: list[str] = None
+    num_samples: int = 100
+    max_seq_length: int = 1024
+    temperature: float = 0.7
+    top_p: float = 0.9
+    max_new_tokens: int = 1024
+    seed: int = 42
+    batch_size: int = 16
+    use_llm_as_judge: bool = False
+    training_type: str = "sft"
+
+    def __post_init__(self):
+        if self.languages is None:
+            self.languages = ["python", "java", "javascript", "php", "ruby", "go"]
