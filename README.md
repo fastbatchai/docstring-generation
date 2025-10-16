@@ -1,48 +1,99 @@
 <div align="center">
-<h1> AutoDoc Course</h1>
-<h3>Learn how to finetune language models to generate docstrings</h3>
-<p class="tagline">Open-source course by <a href="https://substack.com/@fastbatch">Fast Batch</a></p>
+
+# 🚀 AutoDoc Course
+
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
+[![Course](https://img.shields.io/badge/course-lessons-green.svg)](#-course-lessons)
+
+**Learn how to fine-tune language models to automatically generate high-quality docstrings across multiple programming languages.**
+
 </div>
 
 
+<!-- [![Cost](https://img.shields.io/badge/total%20cost-$30-brightgreen.svg)](#-cost-breakdown) -->
 
-**AutoDoc** is short and comprehensive implemntation of an LLM finetuning pipeline to automatically generate high-quality docstrings for code functions across multiple programming languages. This repo includes training and evaluation scripts for `instruction finetuning` and `RL-finetuning` using `GRPO`. It also helps compare different finetuning frameworks such as [PEFT](https://huggingface.co/docs/peft/index), [Unsloth](https://unsloth.ai/) and [TRL](https://github.com/huggingface/trl?tab=readme-ov-file).
+## 🎯 What You'll Learn
 
-We use [Modal](https://modal.com/) for training and evaluating on GPU. It possible to finetune a 2B parameter model almost for free using Modal. As a reference, all our experiments cost us 30$.
+- **Multi-task Fine-tuning**: Train models to generate docstrings across multiple programming languages simultaneously
+- **LLM Fine-tuning Techniques**: Instruction fine-tuning and RL fine-tuning using GRPO
+- **Hands-on Experience**: Work with different fine-tuning libraries (PEFT, TRL, Unsloth)
+- **Cloud Infrastructure**: Deploy scalable training with Modal
+- **Performance Evaluation**: Compare models using automated metrics and evaluation frameworks
 
 ## 🚀 Quick Start
 
 ```bash
-# Clone the repository
+# Clone and install
 git clone https://github.com/fastbatchai/docstring-generation.git
 cd docstring-generation
-
-# Install dependencies
 uv pip install -e .
 
-# Install development dependencies
-uv pip install -e ".[dev]"
-```
-You need to setup Modal before starting training ```modal setup```
+# Setup Modal
+modal setup
 
-### Launch instruction finetuning
-```bash
+# Run training
 modal run -i -m autoDoc.train --training-type sft --use-unsloth
 ```
-### Launch RL-finetuning using GRPO
-```bash
-modal run -i -m autoDoc.train --training-type grpo --experiment_name EXPERIMENT_NAME --verbose 1
-```
 
-### Evaluate a model
-```bash
-modal run -m autoDoc.evaluate_model
-```
+## 📖 Course Lessons
 
-## 🤝 Contributing
+- **[Lesson 1: Introduction to LLM Fine-tuning](lessons/lesson-1-introduction.md)** - Fine-tuning fundamentals *(Coming Soon)*
+- **[Lesson 2: Data Preparation](lessons/lesson-2-data-preparation.md)** - Multi-language dataset preprocessing and prompt engineering *(Comming soon)*
+- **[Lesson 3: Instruction Fine-tuning](lessons/lesson-3-sft.md)** - SFT implementation with Alpaca format, Modal infrastructure, and monitoring *(Coming Soon)*
+- **[Lesson 4: RL Fine-tuning](lessons/lesson-4-grpo.md)** - GRPO implementation, reward functions, and preference learning *(Coming Soon)*
+- **[Lesson 5: Evaluation and Comparison](lessons/lesson-5-evaluation.md)** - Automated metrics and model comparison *(Coming Soon)*
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## 📊 Results
+
+### Fine-tuning Performance: CodeGemma vs CodeGemma+LoRA
+
+<div align="center">
+
+| Language | CodeGemma | CodeGemma+LoRA | Improvement |
+|:--------:|:---------------------:|:--------------:|:-----------:|
+| Python   | 0.47                 | 0.52           | +11%        |
+| Java     | 0.57                 | 0.55           | -4%         |
+| JavaScript | 0.43                 | 0.48           | +12%        |
+| Go       | 0.49                 | 0.54           | +10%        |
+| PHP      | 0.42                 | 0.63           | +50%        |
+| Ruby     | 0.52                 | 0.60           | +15%        |
+
+</div>
+
+> **NOTE:** These are preliminary results based on training with a small subset (1K samples for each programming language).
+
+### Instruction finetuning results
+
+<div align="center">
+
+<table>
+<tr>
+<td align="center">
+<b>Model Comparison Across Different Base Models</b><br/>
+<img src="figures/doc-gen-model-comparison.png" width="400"/>
+</td>
+<td align="center">
+<b>LoRA Configuration Impact on Performance</b><br/>
+<img src="figures/doc-gen-eval-comparison-lora-config.png" width="400"/>
+</td>
+</tr>
+</table>
+
+</div>
+
+More results are available in **[Lesson 5: Evaluation and Comparison](lessons/lesson-5-evaluation.md)**
+
+## 🤝 Community
+
+- **Discussions**: [GitHub Discussions](https://github.com/fastbatchai/docstring-generation/discussions)
+- **Issues**: [Report bugs](https://github.com/fastbatchai/docstring-generation/issues)
+- **Newsletter**: [Subscribe for updates](https://substack.com/@fastbatch)
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see [LICENSE](LICENSE) file for details.
+
+---
+
+**⭐ Star this repository if you found it helpful!**
