@@ -34,6 +34,11 @@ modal run -i -m autoDoc.train --training-type sft --use-unsloth
 modal run -i -m autoDoc.train --training-type grpo --experiment_name EXPERIMENT_NAME --verbose 1
 ```
 
+### Evaluate a model
+```bash
+modal run -m autoDoc.evaluate_model
+```
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -41,6 +46,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-
-<!-- **Made with ❤️ for the open-source community** -->

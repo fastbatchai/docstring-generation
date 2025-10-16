@@ -40,7 +40,9 @@ def filter_quality_examples(example: dict[str, Any]) -> bool:
     return True
 
 
-def format_alpaca_example(example: dict[str, Any], eos_token: str) -> dict[str, str]:
+def format_alpaca_example(
+    example: dict[str, Any], eos_token: str = None, mode="train"
+) -> dict[str, str]:
     """
     Format example for instruction finetuning
     The output must be a dict for training
@@ -50,8 +52,10 @@ def format_alpaca_example(example: dict[str, Any], eos_token: str) -> dict[str, 
     response = (
         example["docstring"] if example["docstring"] else "No docstring available."
     )
-
-    formatted_example = ALPACA_PROMPT.format(language, code, response) + eos_token
+    if mode == "train":
+        formatted_example = ALPACA_PROMPT.format(language, code, response) + eos_token
+    else:
+        formatted_example = ALPACA_PROMPT.format(language, code, "")
     return {"text": formatted_example}
 
 
