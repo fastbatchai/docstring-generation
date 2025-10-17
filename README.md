@@ -38,7 +38,7 @@ modal run -i -m autoDoc.train --training-type sft --use-unsloth
 
 ## 📖 Course Lessons
 
-- **[Lesson 1: Introduction to LLM Fine-tuning](lessons/lesson-1-introduction.md)** - Fine-tuning fundamentals *(Coming Soon)*
+- **[Lesson 1: Introduction to LLM Fine-tuning](lessons/lesson-1-introduction.md)** - Fine-tuning fundamentals
 - **[Lesson 2: Data Preparation](lessons/lesson-2-data-preparation.md)** - Multi-language dataset preprocessing and prompt engineering *(Comming soon)*
 - **[Lesson 3: Instruction Fine-tuning](lessons/lesson-3-sft.md)** - SFT implementation with Alpaca format, Modal infrastructure, and monitoring *(Coming Soon)*
 - **[Lesson 4: RL Fine-tuning](lessons/lesson-4-grpo.md)** - GRPO implementation, reward functions, and preference learning *(Coming Soon)*
