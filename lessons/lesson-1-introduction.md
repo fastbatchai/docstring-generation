@@ -212,6 +212,7 @@ Now that you understand the theoretical foundations, you're ready to dive into p
 - [LLM Post-Training: A Deep Dive into Reasoning
 Large Language Models](https://arxiv.org/pdf/2502.21321)
 - [Understanding Prompt Tuning: Enhance Your Language Models with Precision](https://www.datacamp.com/tutorial/understanding-prompt-tuning)
+- [Mastering QLoRa](https://manalelaidouni.github.io/4Bit-Quantization-Models-QLoRa.html)
 ---
 
 *Ready to start building? Let's move on to Lesson 2: Data Preparation!*
