@@ -220,5 +220,5 @@ pytest tests/test_dataset.py
 Now that we have finished the data preparation, we are ready to start fine-tuning!
 
 - **Lesson 3**: Building instruction fine-tuning pipelines with Modal
-- **Lesson 4**: Implementing GRPO for preference-based learning
+- **Lesson 4**: Implementing GRPO for RL finetuning
 - **Lesson 5**: Comprehensive evaluation and model comparison

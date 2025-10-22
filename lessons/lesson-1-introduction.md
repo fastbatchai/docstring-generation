@@ -204,7 +204,7 @@ Now that you understand the theoretical foundations, you're ready to dive into p
 
 - **Lesson 2**: Data preparation for multi-language docstring generation
 - **Lesson 3**: Building instruction fine-tuning pipelines with Modal
-- **Lesson 4**: Implementing GRPO for preference-based learning
+- **Lesson 4**: Implementing GRPO for RL finetuning
 - **Lesson 5**: Comprehensive evaluation and model comparison
 
 ## 📚 Additional Resources
