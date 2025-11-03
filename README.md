@@ -42,7 +42,7 @@ modal run -i -m autoDoc.train --training-type sft --use-unsloth
 - **[Lesson 2: Data Preparation](lessons/lesson-2-data-preparation.md)** - Multi-language dataset preprocessing and prompt engineering
 - **[Lesson 3: Instruction Fine-tuning](lessons/lesson-3-sft.md)** - SFT implementation with Alpaca format, Modal infrastructure, and monitoring
 - **[Lesson 4: RL Fine-tuning](lessons/lesson-4-grpo.md)** - GRPO implementation, reward functions, and preference learning
-- **[Lesson 5: Evaluation and Comparison](lessons/lesson-5-evaluation.md)** - Automated metrics and model comparison *(Coming Soon)*
+- **[Lesson 5: Evaluation and Comparison](lessons/lesson-5-evaluation.md)** - Automated metrics and model comparison
 
 ## 📊 Results
 
