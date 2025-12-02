@@ -89,7 +89,6 @@ def evaluate_model(config):
     all_results = {}
     all_metrics = {}
     all_references = {}
-    # modal.interact()
 
     for lang in config.languages:
         print(f"\nEvaluating {lang}...")
@@ -103,7 +102,7 @@ def evaluate_model(config):
         dataset = dataset.rename_column("func_documentation_string", "docstring")
 
         dataset = dataset.map(preproc_fn, batched=False, fn_kwargs=preproc_kwargs)
-
+        print(dataset[0][key])
         outputs = pipe(
             dataset[key],
             batch_size=16,
@@ -119,23 +118,30 @@ def evaluate_model(config):
             model_type="bert-base-uncased",
         )
         bert_f1 = sum(bert_results["f1"]) / len(bert_results["f1"])
-        perplexities = perplexity_metric.compute(
+        ref_perplexities = perplexity_metric.compute(
             model=model, tokenizer=tokenizer, data=references
         )
-        avg_perplexity = sum(perplexities["perplexities"]) / len(
-            perplexities["perplexities"]
+        avg_perplexity = sum(ref_perplexities["perplexities"]) / len(
+            ref_perplexities["perplexities"]
+        )
+        gen_perplexities = perplexity_metric.compute(
+            model=model, tokenizer=tokenizer, data=generated_responses
+        )
+        avg_gen_perplexity = sum(gen_perplexities["perplexities"]) / len(
+            gen_perplexities["perplexities"]
         )
 
         all_metrics[lang] = {
             "bertscore_f1": bert_f1,
-            "perplexity": avg_perplexity,
+            "ref_perplexity": avg_perplexity,
+            "gen_perplexity": avg_gen_perplexity,
         }
 
         if config.use_llm_as_judge:
             completions = [
                 [c0, c1] for c0, c1 in zip(references, generated_responses, strict=True)
             ]
-            best_idxs = judge.judge(dataset["prompt"], completions)
+            best_idxs = judge.judge(dataset[key], completions)
             model_win_rate = best_idxs.count(1) / len(best_idxs)
             all_metrics[lang]["model_win_rate"] = model_win_rate
 
