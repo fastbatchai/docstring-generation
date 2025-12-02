@@ -53,9 +53,9 @@ class SFTExperimentConfig:
     lr_scheduler_type: str = "cosine"
     warmup_steps: int = 100
     warmup_ratio: float = 0.03
-    fp16: bool = False
-    bf16: bool = True
-    use_unsloth: bool = False
+    fp16: bool = True
+    bf16: bool = False
+    use_unsloth: bool = True
     use_gradient_checkpointing: str = "unsloth"
 
     # Logging and Evaluation
@@ -82,6 +82,7 @@ class GRPOExperimentConfig(SFTExperimentConfig):
     top_p: float = 0.9
     top_k: int = 50
     max_completion_length: int = 1024
+    sft_experiment_name: str = None
 
     def __post_init__(self):
         self.dataset.preproc_func = format_grpo_example
@@ -104,7 +105,7 @@ class EvaluationConfig:
     max_new_tokens: int = 1024
     seed: int = 42
     batch_size: int = 16
-    use_llm_as_judge: bool = False
+    use_llm_as_judge: bool = True
     training_type: str = "sft"
 
     def __post_init__(self):
