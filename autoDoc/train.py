@@ -21,7 +21,12 @@ with base_image.imports():
     import torch
     import wandb
     from datasets import load_from_disk
-    from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
+    from peft import (
+        LoraConfig,
+        get_peft_model,
+        PeftModel,
+        prepare_model_for_kbit_training,
+    )
 
 GPU_TYPE = "L40S"
 TIMEOUT_HOURS = 6
@@ -164,7 +169,16 @@ def setup_model_for_finetuning_peft(config, model):
     if config.load_in_4bit or config.load_in_8bit:
         model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=False)
 
-    model = get_peft_model(model, lora_config)
+    if config.sft_experiment_name:
+        checkpoint_path = (
+            pathlib.Path("/checkpoints")
+            / "experiments"
+            / config.sft_experiment_name
+            / "final_model"
+        )
+        model = PeftModel.from_pretrained(model, checkpoint_path, is_trainable=True)
+    else:
+        model = get_peft_model(model, lora_config)
 
     return model
 
