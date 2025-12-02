@@ -3,8 +3,9 @@
 import re
 from collections import Counter
 
-import torch
-from bert_score import score
+from bert_score import BERTScorer
+
+SCORER = BERTScorer(lang="en", rescale_with_baseline=True)
 
 
 def clean_text(text: str) -> str:
@@ -93,14 +94,7 @@ def semantic_reward(
     clean_refs = [clean_text(r) for r in docstring]
     clean_preds = [clean_text(c) for c in completions]
 
-    # Calculate BERTScore
-    _, _, F1 = score(
-        clean_preds,
-        clean_refs,
-        lang="en",
-        verbose=False,
-        device="cuda" if torch.cuda.is_available() else "cpu",
-    )
+    _, _, F1 = SCORER.score(clean_preds, clean_refs)
     F1 = F1.tolist()
 
     rewards = []
