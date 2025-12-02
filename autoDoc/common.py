@@ -21,15 +21,6 @@ base_image: modal.Image = (
     .add_local_python_source("autoDoc")
 )
 
-# # Extend base image with GRPO dependencies
-# grpo_image: modal.Image = base_image.uv_pip_install(
-#     "bert-score",
-# ).add_local_python_source("autoDoc")
-
-# sft_image: modal.Image = base_image.uv_pip_install(
-#     "unsloth[cu128-torch270]==2025.7.8",
-#     "unsloth_zoo==2025.7.10",
-# ).add_local_python_source("autoDoc")
 
 train_app = modal.App(
     "docstring-finetune",
